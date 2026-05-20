@@ -1,0 +1,34 @@
+@host = http://localhost:8000
+
+### Получить список ресторанов
+GET {{host}}/restaurants
+
+### Получить один ресторан
+GET {{host}}/restaurants/2
+
+### Создать ресторан
+POST {{host}}/restaurants
+Content-Type: application/json
+
+{
+    "name": "Pizza House",
+    "address": "Warsaw",
+    "cuisine": "Italian",
+    "rating": 4.5,
+    "is_open": true
+}
+
+### Обновить ресторан
+PATCH {{host}}/restaurants/1
+Content-Type: application/json
+
+{
+    "name": "Rivas-Mcknight",
+    "address": "146 Johnson Overpass\nPort Jenniferport, NJ 88187",
+    "cuisine": "Japanese",
+    "rating": 3.0,
+    "is_open": false
+}
+
+### Удалить ресторан
+DELETE {{host}}/restaurants/2

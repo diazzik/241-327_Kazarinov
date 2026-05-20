@@ -1,0 +1,76 @@
+services:
+
+  postgres_service:
+    image: postgres:16
+    container_name: postgres_container
+
+    env_file:
+      - .env
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U django -d lab1_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  migration_service:
+    build: ./backend
+
+    command: >
+      sh -c "
+      python manage.py migrate &&
+      python manage.py collectstatic --noinput
+      "
+
+    env_file:
+      - .env
+
+    volumes:
+      - static_volume:/staticfiles
+
+    depends_on:
+      postgres_service:
+        condition: service_healthy
+
+  backend_service:
+    build: ./backend
+
+    command: >
+      gunicorn lab1.wsgi:application --bind 0.0.0.0:8000
+
+    env_file:
+      - .env
+
+    volumes:
+      - static_volume:/staticfiles
+
+    depends_on:
+      postgres_service:
+        condition: service_healthy
+
+      migration_service:
+        condition: service_completed_successfully
+
+
+  nginx_service:
+    build: ./nginx
+
+    ports:
+      - "8080:80"
+      - "443:443"
+
+    volumes:
+      - static_volume:/staticfiles
+
+    depends_on:
+      - backend_service
+
+volumes:
+  postgres_data:
+  static_volume:

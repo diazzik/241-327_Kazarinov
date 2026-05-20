@@ -4,7 +4,7 @@
 GET {{host}}/restaurants
 
 ### Получить один ресторан
-GET {{host}}/restaurants/1
+GET {{host}}/restaurants/2
 
 ### Создать ресторан
 POST {{host}}/restaurants
