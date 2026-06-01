@@ -18,7 +18,7 @@ RestAdapter::RestAdapter(QObject *parent)
 
 void RestAdapter::getList()
 {
-    QUrl url("http://127.0.0.1:8080/restaurants");
+    QUrl url("https://localhost/restaurants");
 
     QNetworkRequest request(url);
 
@@ -73,7 +73,7 @@ void RestAdapter::getList()
 
 void RestAdapter::getOne(int id)
 {
-    QUrl url("http://127.0.0.1:8080/restaurants/" + QString::number(id));
+    QUrl url("https://localhost/restaurants/" + QString::number(id));
 
     QNetworkRequest request(url);
 
@@ -95,7 +95,7 @@ void RestAdapter::getOne(int id)
 
 void RestAdapter::createRestaurant()
 {
-    QUrl url("http://127.0.0.1:8080/restaurants");
+    QUrl url("https://localhost/restaurants");
 
     QNetworkRequest request(url);
 
@@ -130,7 +130,7 @@ void RestAdapter::createRestaurant()
 
 void RestAdapter::updateRestaurant(int id)
 {
-    QUrl url("http://127.0.0.1:8080/restaurants/" + QString::number(id));
+    QUrl url("https://localhost/restaurants/" + QString::number(id));
 
     QNetworkRequest request(url);
 
@@ -165,7 +165,7 @@ void RestAdapter::updateRestaurant(int id)
 
 void RestAdapter::deleteRestaurant(int id)
 {
-    QUrl url("http://127.0.0.1:8080/restaurants/" + QString::number(id));
+    QUrl url("https://localhost/restaurants/" + QString::number(id));
 
     QNetworkRequest request(url);
 

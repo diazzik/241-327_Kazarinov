@@ -58,8 +58,21 @@ services:
         condition: service_completed_successfully
 
 
-  nginx_service:
-    build: ./nginx
+  # nginx_service:
+  #   build: ./nginx
+
+  #   ports:
+  #     - "8080:80"
+  #     - "443:443"
+
+  #   volumes:
+  #     - static_volume:/staticfiles
+
+  #   depends_on:
+  #     - backend_service
+
+  apache_service:
+    build: ./apache
 
     ports:
       - "8080:80"
@@ -70,6 +83,7 @@ services:
 
     depends_on:
       - backend_service
+
 
 volumes:
   postgres_data:
